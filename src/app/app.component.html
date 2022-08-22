@@ -2,53 +2,156 @@
 <button class="btn btn-primary">Hello</button> -->
 <!-- <br>
 <i class="fa fa-edit me-5"></i>
-<i class="fa fa-address-book-o" aria-hidden="true"></i> --> 
+<i class="fa fa-address-book-o" aria-hidden="true"></i> -->
 
 
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-header">{{title}}</h5>
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">User Add Form</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
 
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      <div class="modal-body">
+        <p>Fill the form</p>
+
+        <!--Form started-->
+        <form [formGroup]="addForm"  (ngSubmit)="addUser()">
+          <div class="row">
+            <div class="form-group col-2">
+
+
+              <label>
+                Title
+              </label>
+              <select class="form-control" formControlName="title">
+                <option Value="">--Select Title--</option>
+                <option Value="Mr">Mr</option>
+                <option Value="Mrs">Mrs</option>
+                <option Value="Miss">Miss</option>
+                <option Value="Ms">Ms</option>
+
+
+              </select>
+            </div>
+            <div class="form-group col-5">
+              <label>
+                FirstName
+              </label>
+              <input type="text" class="form-control" formControlName="firstName" />
+            </div>
+            <div class="form-group col-5">
+
+
+              <label>
+                Last Name
+              </label>
+              <input type="text" class="form-control" formControlName="lastName" />
+            </div>
+            <div class="row">
+              <div class="form-group col-6">
+                <label>
+                  DOB
+                </label>
+                <input type="text" class="form-control" formControlName="dob" />
+              </div>
+
+              <div class="form-group col-6">
+                <label>
+                  Email
+                </label>
+                <input type="text" class="form-control" formControlName="email" />
+              </div>
+
+            </div>
+
+
+            <div class="row">
+              <div class="form-group col-6">
+                <label>
+                  Password
+                </label>
+                <input type="password" class="form-control" formControlName="password" />
+              </div>
+
+              <div class="form-group col-6">
+                <label>
+                  confirmPassword
+                </label>
+                <input type="password" class="form-control" formControlName="confirmPassword" />
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="form-group col form-check">
+                <label for="acceptTerms" class="form-check-label">
+                  Accept Terms and Condition
+                </label>
+                <input type="checkbox" class="form-check-input" id="acceptTerms" formControlName="acceptTerms" />
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="form-group text-center">
+
+                <button type="submit" class="btn btn-success me2">Save</button>
+                <button type="button" class="btn btn-danger">Cancel</button>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      </div>
+    </ng-template>
+    <h5 class="card-title card-header">User List</h5>
+    <div style="text-align: right;">
+      <button class="btn btn-outline-primary mb-2 me-2" (click)="openXl(content)">Add User</button>
+
+    </div>
+    <div class="form-row">
+      <div class="form-group-col">
+        <table class="table table-dark">
+
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">DOB</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="col">Mr</th>
+              <th scope="col">Durgesh</th>
+              <th scope="col">Gupta</th>
+              <th scope="col">23-09-1995</th>
+              <th scope="col">dkg@gmail.com</th>
+              <td>
+                <i class="fa fa-edit me-3" style="color: green;" (click)="edit(1)"></i>
+
+                <i class="fa fa-trash me-3" style="color: red;" (click)="delete(1)"></i>
+
+              </td>>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
   </div>
-  <div class="modal-body">
-    <p>One fine body&hellip;</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-  </div>
-</ng-template>
 
-<ng-template #longContent let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-  </div>
-</ng-template>
-
-
-<button class="btn btn-outline-primary mb-2 me-2" (click)="openXl(content)">Extra large modal</button>
+</div>
