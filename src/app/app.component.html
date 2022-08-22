@@ -19,78 +19,121 @@
         <p>Fill the form</p>
 
         <!--Form started-->
-        <form [formGroup]="addForm"  (ngSubmit)="addUser()">
-          <div class="row">
+        <form [formGroup]="addForm" (ngSubmit)="addUser()">
+          <div class="row mb-3">
             <div class="form-group col-2">
-
-
               <label>
                 Title
               </label>
-              <select class="form-control" formControlName="title">
+              <select class="form-control" formControlName="title"
+                [ngClass]="{'is-invalid':submitted && addForm.controls['title'].errors}">
                 <option Value="">--Select Title--</option>
                 <option Value="Mr">Mr</option>
                 <option Value="Mrs">Mrs</option>
                 <option Value="Miss">Miss</option>
                 <option Value="Ms">Ms</option>
-
-
               </select>
+              <div class="invalid-feedback" *ngIf="submitted && addForm.controls['title'].errors"> title is required
+              </div>
             </div>
             <div class="form-group col-5">
-              <label>
-                FirstName
-              </label>
-              <input type="text" class="form-control" formControlName="firstName" />
+              <label>FirstName </label>
+              <input type="text" class="form-control" formControlName="firstName"
+                [ngClass]="{'is-invalid':submitted && addForm.controls['firstName'].errors}" />
+              <div class="invalid-feedback" *ngIf="submitted && addForm.controls['firstName'].errors">
+                <div *ngIf=" addForm.controls['firstName'].errors['required']">firstName is required </div>
+                <div *ngIf=" addForm.controls['firstName'].errors['minlength']">firstName is must 3 char long </div>
+                <div *ngIf=" addForm.controls['firstName'].errors['maxlength']">firstName max 10 char </div>
+              </div>
             </div>
+
+
             <div class="form-group col-5">
+              <label> Last Name </label>
 
-
-              <label>
-                Last Name
-              </label>
-              <input type="text" class="form-control" formControlName="lastName" />
+              <input type="text" class="form-control" formControlName="lastName"
+                [ngClass]="{'is-invalid':submitted && addForm.controls['lastName'].errors}" />
+              <div class="invalid-feedback" *ngIf="submitted && addForm.controls['firstName'].errors">
+                <div *ngIf=" addForm.controls['lastName'].errors['required']">lastName is required </div>
+                <div *ngIf=" addForm.controls['lastName'].errors['minlength']">lastName is must 3 char long </div>
+                <div *ngIf=" addForm.controls['lastName'].errors['maxlength']">lastName max 10 char </div>
+              </div>
             </div>
-            <div class="row">
-              <div class="form-group col-6">
-                <label>
-                  DOB
-                </label>
-                <input type="text" class="form-control" formControlName="dob" />
+          </div>
+
+
+          <div class="row mb-3">
+            <div class="form-group col-6">
+              <label>
+                DOB
+              </label>
+              <input type="date" class="form-control" formControlName="dob"
+                [ngClass]="{'is-invalid':submitted && addForm.controls['dob'].errors}" />
+              <div class="invalid-feedback" *ngIf="submitted && addForm.controls['dob'].errors">
+                <div *ngIf=" addForm.controls['dob'].errors['required']">dob is required </div>
+
               </div>
 
               <div class="form-group col-6">
                 <label>
                   Email
                 </label>
-                <input type="text" class="form-control" formControlName="email" />
+                <input type="email" class="form-control" formControlName="email"
+                  [ngClass]="{'is-invalid':submitted && addForm.controls['email'].errors}" />
+                <div class="invalid-feedback" *ngIf="submitted && addForm.controls['email'].errors">
+                  <div *ngIf=" addForm.controls['email'].errors['required']">email is required </div>
+                  <div *ngIf=" addForm.controls['email'].errors['email']">email must be valid </div>
+
+                </div>
+
               </div>
 
             </div>
 
 
-            <div class="row">
+            <div class="row mb-3">
               <div class="form-group col-6">
                 <label>
                   Password
                 </label>
-                <input type="password" class="form-control" formControlName="password" />
+                <input type="password" class="form-control" formControlName="password"
+                  [ngClass]="{'is-invalid':submitted && addForm.controls['password'].errors}" />
+                <div class="invalid-feedback" *ngIf="submitted && addForm.controls['password'].errors">
+                  <div *ngIf=" addForm.controls['password'].errors['required']">password is required </div>
+                  <div *ngIf=" addForm.controls['password'].errors['minlength']">password min 8 </div>
+                  <div *ngIf=" addForm.controls['password'].errors['minlength']">password max 16 </div>
+
+                </div>
+
               </div>
 
               <div class="form-group col-6">
                 <label>
                   confirmPassword
                 </label>
-                <input type="password" class="form-control" formControlName="confirmPassword" />
+                <input type="password" class="form-control" formControlName="confirmPassword"
+                  [ngClass]="{'is-invalid':submitted && addForm.controls['confirmPassword'].errors}" />
+                <div class="invalid-feedback" *ngIf="submitted && addForm.controls['confirmPassword'].errors">
+                  <div *ngIf="addForm.controls['confirmPassword'].errors['required']">confirmPassword is required
+                  </div>
+                </div>
               </div>
 
             </div>
-            <div class="row">
+
+            <div class="row mb-3">
               <div class="form-group col form-check">
-                <label for="acceptTerms" class="form-check-label">
+              
+                <input type="checkbox" class="form-check-input" id="acceptTerms" formControlName="acceptTerms" 
+                 [ngClass]="{'is-invalid':submitted && addForm.controls['acceptTerms'].errors}" />
+                 <label for="acceptTerms" class="form-check-label">
                   Accept Terms and Condition
                 </label>
-                <input type="checkbox" class="form-check-input" id="acceptTerms" formControlName="acceptTerms" />
+                <div class="invalid-feedback" *ngIf="submitted && addForm.controls['acceptTerms'].errors">
+                  <span *ngIf="addForm.controls['acceptTerms'].errors['required']">Accept Terms and Condition is required</span>
+                  
+                </div>
+                
               </div>
             </div>
 
@@ -99,11 +142,11 @@
               <div class="form-group text-center">
 
                 <button type="submit" class="btn btn-success me2">Save</button>
-                <button type="button" class="btn btn-danger">Cancel</button>
+                <button type="button" class="btn btn-danger" (click)="cancelForm()">Cancel</button>
               </div>
             </div>
-
           </div>
+
         </form>
       </div>
 
