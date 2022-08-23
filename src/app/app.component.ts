@@ -16,12 +16,13 @@ export class AppComponent implements OnInit {
   content: string = ''
 
   submitted: boolean = false;
+  buttonText:string=''
 
   @ViewChild('content') elContent: any
 
   modalRef: any
 
-  buttonText: string = ''
+  formTitle: string = ''
   db: Action | undefined
 
   addForm: FormGroup | any
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit {
   }
   setFormState() {
     this.buttonText ="Save"
+    this.formTitle =" Add User Form"
     this.db = Action.create
     this.addForm = new FormGroup({
       id: new FormControl(0),
@@ -56,7 +58,11 @@ export class AppComponent implements OnInit {
 
 
   cancelForm() {
+    this.buttonText ="Save"
+    this.formTitle =" Add User Form"
+    this.db = Action.create
     this.addForm.reset({
+      
       id: 0,
       title: '',
       firstName: '',
@@ -73,6 +79,8 @@ export class AppComponent implements OnInit {
   edit(id: number) {
     //  alert("edit call : " + id)
     this.buttonText = "Update"
+    this.formTitle ="Update User Form",
+
     this.db = Action.update
 
     this.modalRef = this.modalService.open(this.elContent, { size: 'xl' });
@@ -80,7 +88,33 @@ export class AppComponent implements OnInit {
 
 
   delete(id: number) {
-    alert("delete call : " + id)
+   // alert("delete call : " + id)
+   swalWithBootstrapButtons.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      swalWithBootstrapButtons.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelled',
+        'Your imaginary file is safe :)',
+        'error'
+      )
+    }
+  })
 
   }
   openXl(content: any) {
