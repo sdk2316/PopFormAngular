@@ -99,7 +99,7 @@
                 <div class="invalid-feedback" *ngIf="submitted && addForm.controls['password'].errors">
                   <div *ngIf=" addForm.controls['password'].errors['required']">password is required </div>
                   <div *ngIf=" addForm.controls['password'].errors['minlength']">password min 8 </div>
-                  <div *ngIf=" addForm.controls['password'].errors['minlength']">password max 16 </div>
+                  <div *ngIf=" addForm.controls['password'].errors['maxlength']">password max 16 </div>
 
                 </div>
 
@@ -112,8 +112,11 @@
                 <input type="password" class="form-control" formControlName="confirmPassword"
                   [ngClass]="{'is-invalid':submitted && addForm.controls['confirmPassword'].errors}" />
                 <div class="invalid-feedback" *ngIf="submitted && addForm.controls['confirmPassword'].errors">
-                  <div *ngIf="addForm.controls['confirmPassword'].errors['required']">confirmPassword is required
-                  </div>
+                  <div *ngIf="addForm.controls['confirmPassword'].errors['required']">confirmPassword is required  </div>
+                
+
+                  <div *ngIf="addForm.controls['confirmPassword'].errors['passwordMatch']">Password & confirmPassword both should be same </div>
+                 
                 </div>
               </div>
 

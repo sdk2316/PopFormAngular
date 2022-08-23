@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import swalWithBootstrapButtons from 'sweetalert2';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Action } from './helpers/action.enum';
+import { passwordMatch } from './helpers/must-match-validator';
 
 @Component({
   selector: 'app-root',
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit {
       confirmPassword: new FormControl('', Validators.compose([Validators.requiredTrue])),
       acceptTerms: new FormControl(false, Validators.requiredTrue)
 
-    });
+    },passwordMatch('password','confirmPassword'));
 
 
   }
