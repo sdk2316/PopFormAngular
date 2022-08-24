@@ -105,11 +105,18 @@ export class AppComponent implements OnInit {
     reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
-      swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
+      // delete code here
+      this._userApiService.deleteUser(id).subscribe(res=>{
+        this.getAllUsers();
+
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'User data  has been deleted.',
+          'success'
+        )
+
+      })
+      
     } else if (
       /* Read more about handling dismissals below */
       result.dismiss === Swal.DismissReason.cancel
