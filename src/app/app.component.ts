@@ -6,6 +6,8 @@ import swalWithBootstrapButtons from 'sweetalert2';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Action } from './helpers/action.enum';
 import { passwordMatch } from './helpers/must-match-validator';
+import { UserApiService } from './service/user-api.service';
+import { User } from './service/user.interface';
 
 @Component({
   selector: 'app-root',
@@ -28,12 +30,15 @@ export class AppComponent implements OnInit {
 
   addForm: FormGroup | any
 
-  constructor(private toast: ToastrService, private modalService: NgbModal) {
+  userData: User[] = [];
+
+  constructor(private toast: ToastrService, private modalService: NgbModal,private _userApiService:UserApiService) {
 
   }
 
   ngOnInit() {
     this.setFormState();
+    this.getAllUsers();
 
   }
   setFormState() {
@@ -145,6 +150,13 @@ export class AppComponent implements OnInit {
     // console.log(this.addForm.value);
     //console.log(this.addForm.valid);
    
+  }
+
+
+  getAllUsers(){
+    this._userApiService.getUsers().subscribe((res:any)=>{
+      this.userData=res;
+    })
   }
 
 
