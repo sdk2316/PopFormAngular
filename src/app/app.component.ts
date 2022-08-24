@@ -82,12 +82,25 @@ export class AppComponent implements OnInit {
     this.modalRef.close();
   }
 
-  edit(id: number) {
+  edit(userId: number) {
     //  alert("edit call : " + id)
+    
     this.buttonText = "Update"
     this.formTitle ="Update User Form",
 
     this.db = Action.update
+
+    //edit code here 
+    let user =this.userData.find((u:User)=>u.id === userId);
+    // patchValue() like PartialMapping in Spring Boot
+    this.addForm.patchValue(user);
+// set value like PostMapping
+    //this.addForm.setValue();
+
+    this.addForm.get('password').setValue('');
+    this.addForm.get('acceptTerms').setValue(false);
+    
+
 
     this.modalRef = this.modalService.open(this.elContent, { size: 'xl' });
   }
