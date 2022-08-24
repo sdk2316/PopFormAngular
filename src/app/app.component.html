@@ -167,7 +167,7 @@
 
           <thead>
             <tr>
-              <th scope="col">Id</th>
+             
               <th scope="col">Title</th>
               <th scope="col">First Name</th>
               <th scope="col">Last Name</th>
@@ -178,14 +178,12 @@
           </thead>
           <tbody>
             <tr  *ngFor="let user of userData">
-            <td>{{ user.id}}</td>
+          
             <td>{{ user.title}}</td>
             <td>{{ user.firstName}}</td>
             <td>{{ user.lastName}}</td>
             <td>{{ user.dob}}</td>
             <td>{{ user.email}}</td>
-           
-            <td></td>
               <td>
                 <i class="fa fa-edit me-3" style="color: green;" (click)="edit(user.id)"></i>
 

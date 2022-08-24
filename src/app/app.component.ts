@@ -67,6 +67,7 @@ export class AppComponent implements OnInit {
     this.buttonText ="Save"
     this.formTitle =" Add User Form"
     this.db = Action.create
+    this.submitted = false
     this.addForm.reset({
       
       id: 0,
@@ -98,6 +99,7 @@ export class AppComponent implements OnInit {
     //this.addForm.setValue();
 
     this.addForm.get('password').setValue('');
+    this.addForm.get('confirmPassword').setValue('');
     this.addForm.get('acceptTerms').setValue(false);
     
 
@@ -155,14 +157,26 @@ export class AppComponent implements OnInit {
     }
     switch (this.db) {
       case Action.create:
-        // create code 
-        this.toast.success("Add added ", "User form")
-        this.modalRef.cancelForm();
+        // create code here 
+
+        this._userApiService.addUser(this.addForm.value).subscribe(res=>{
+
+          this.toast.success("Add added ", "User Registration form")
+          this.getAllUsers();
+          this.cancelForm();
+
+        })
+       
         break;
       case Action.update:
         // update code
-        this.toast.success("Updated added ", " User form")
-        this.modalRef.cancelForm();
+        this._userApiService.addUser(this.addForm.value).subscribe(res=>{
+
+          this.toast.success("User Updated ", "User Registration form")
+          this.getAllUsers();
+          this.cancelForm();
+        })
+
         break;
 
     }
